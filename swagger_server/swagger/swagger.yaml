@@ -1,0 +1,42 @@
+---
+swagger: "2.0"
+info:
+  version: "0.1"
+  title: "Sanguis API"
+paths:
+  /bloodstations:
+    get:
+      operationId: "bloodstations_get"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/inline_response_200"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+definitions:
+  BloodStation:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "Центр крови ФМБА России"
+  inline_response_200:
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "Центр крови ФМБА России"
