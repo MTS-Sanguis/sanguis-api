@@ -1,5 +1,5 @@
 import connexion
-from swagger_server.models.inline_response_200 import InlineResponse200
+from swagger_server.models.blood_station import BloodStation
 from datetime import date, datetime
 from typing import List, Dict
 from six import iteritems
@@ -11,6 +11,6 @@ def bloodstations_get():
     bloodstations_get
     
 
-    :rtype: List[InlineResponse200]
+    :rtype: List[BloodStation]
     """
     return 'do some magic!'

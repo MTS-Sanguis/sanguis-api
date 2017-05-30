@@ -16,21 +16,11 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/inline_response_200"
+              $ref: "#/definitions/BloodStation"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
 definitions:
   BloodStation:
     type: "object"
-    required:
-    - "name"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      name:
-        type: "string"
-        example: "Центр крови ФМБА России"
-  inline_response_200:
     required:
     - "name"
     properties:
