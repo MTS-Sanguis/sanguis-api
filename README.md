@@ -1,3 +1,13 @@
+# Generate from scratch
+
+```
+swagger-codegen generate \
+  -i ../sanguis/swagger.yaml \
+  -l python-flask \
+  -o python-flask-server \
+  -D supportPython2=true
+```
+
 # Swagger generated server
 
 ## Overview
