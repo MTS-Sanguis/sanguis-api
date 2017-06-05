@@ -6,27 +6,126 @@ info:
 paths:
   /bloodstations:
     get:
-      operationId: "bloodstations_get"
+      operationId: "get_blood_stations"
       produces:
       - "application/json"
       parameters: []
       responses:
         200:
-          description: "successful operation"
+          description: "List of blood stations"
           schema:
             type: "array"
             items:
               $ref: "#/definitions/BloodStation"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /bloodstation/{id}:
+    get:
+      operationId: "get_blood_station_by_id"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "BloodStation"
+          schema:
+            $ref: "#/definitions/BloodStation"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /questionnaire:
+    get:
+      operationId: "get_questionnaire"
+      parameters: []
+      responses:
+        200:
+          description: "Questionnaire"
+          schema:
+            $ref: "#/definitions/Questionnaire"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    post:
+      operationId: "post_answers"
+      parameters:
+      - in: "body"
+        name: "answers"
+        required: false
+        schema:
+          $ref: "#/definitions/AnswerPath"
+      responses:
+        200:
+          description: "Answers successefully posted"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
 definitions:
   BloodStation:
     type: "object"
     required:
-    - "name"
+    - "id"
     properties:
       id:
         type: "integer"
         format: "int64"
-      name:
+      FullName:
         type: "string"
-        example: "Центр крови ФМБА России"
+        example: "Государственное бюджетное учреждение здравоохранения города Моск\
+          вы «Городская клиническая больница имени С.С. Юдина Департамента здравоо\
+          хранения города Москвы». Станция переливания крови"
+      ShortName:
+        type: "string"
+        example: "ГБУЗ ГКБ им. С.С. Юдина ДЗМ. СПК"
+      WeekWorkingHours:
+        type: "array"
+        items:
+          $ref: "#/definitions/BloodStation_WeekWorkingHours"
+      ClarificationWorkingHours:
+        type: "string"
+        example: "Кроме выходных - государственных праздников РФ."
+      PublicPhone:
+        type: "string"
+        example: "(495) 327-27-47"
+      GeoData:
+        type: "array"
+        items:
+          $ref: "#/definitions/BloodStation_GeoData"
+  Questionnaire:
+    type: "array"
+    items:
+      $ref: "#/definitions/Question"
+  Question:
+    type: "object"
+    properties:
+      question:
+        type: "string"
+        example: "Вам уже есть 18 лет?"
+      answer:
+        $ref: "#/definitions/Answers"
+  Answers:
+    type: "object"
+    example:
+      Да: "Следующий вопрос"
+      Нет: "Следующий вопрос"
+  AnswerPath:
+    type: "array"
+    items:
+      type: "string"
+  BloodStation_WeekWorkingHours:
+    properties:
+      WeekDay:
+        type: "string"
+        enum:
+        - "понедельник"
+        - "вторник"
+        - "среда"
+        - "четверг"
+        - "пятница"
+        - "суббота"
+        - "воскресенье"
+      WorkingHours:
+        type: "string"
+        example: "08:30-12:30"
+  BloodStation_GeoData:
+    properties:
+      Latitude:
+        type: "number"
+        example: 55.66316708281587
+      Longitude:
+        type: "number"
+        example: 37.63720098818374

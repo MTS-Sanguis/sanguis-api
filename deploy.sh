@@ -1,4 +1,4 @@
-rsync -rzvaP -e 'ssh -i ~/.ssh/google_compute_engine' swagger_server sanguis:/tmp/
+rsync -rzvaP -e 'ssh -i ~/.ssh/google_compute_engine' swagger_server ../sanguis/questionnaire.yaml sanguis:/tmp/
 
 ssh -i ~/.ssh/google_compute_engine -T sanguis '
 cd /tmp
